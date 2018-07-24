@@ -1,6 +1,6 @@
 # vuemessenger
 
-> a messenger app with vue and firebase
+> A messenger app with vue and firebase
 
 ## Build Setup
 

@@ -12,7 +12,7 @@
       </ul>
     </div>
 
-      <textarea v-model="message" name = "message"></textarea>
+      <textarea v-model="message" name = "message" v-on:keyup.enter="submitMessage"></textarea>
     
       <button @click="submitMessage" class="btn green">
         Submit<i class="material-icons right" id="sub_btn">send</i>
@@ -31,15 +31,16 @@ export default {
     return {
       page_title: 'Vue Messenger',
       message: null,
-      msg_id: null,
       id:null,
-      messages:[]
+      messages:[],	  
+      msg_id: 0
     }
   },
   methods: {
     fetchData() {
-      this.messages.length = 0;
-      db.collection('messageData').orderBy('msg_id').get().then(querySnapshot => {
+      this.messages.length = 0;	  
+      db.collection('messageData').orderBy('msg_id').get().then(querySnapshot => {	 
+	  this.msg_id = querySnapshot.size-1;
         querySnapshot.forEach(doc => {
           const data = {
             'id': doc.id,
