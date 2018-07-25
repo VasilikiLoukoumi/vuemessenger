@@ -38,6 +38,7 @@ export default {
   },
   methods: {
     fetchData() {
+      var msgs = [];
       this.messages.length = 0;	  
       db.collection('messageData').orderBy('msg_id').get().then(querySnapshot => {	 
 	  this.msg_id = querySnapshot.size-1;
@@ -51,6 +52,30 @@ export default {
           this.messages.push(data);
         })
       })
+      db.collection('messageData')
+        .onSnapshot(function (snapshot) {
+          snapshot.docChanges().forEach(function (change) {
+            console.log(change);
+            
+            if (change.type === "added") {
+              console.log("New: ", change.doc.data());
+          
+            }
+            if (change.type === "modified") {
+              console.log("Modified: ", change.doc.data());
+              
+            }
+            if (change.type === "removed") {
+              console.log("Removed: ", change.doc.data());
+             
+            }
+            msgs.push(change.doc.data());
+          });
+
+        }, function (error) {
+          console.log(error);
+        });
+      this.messages = msgs;
     },
     deleteMessage() {
       this.message = "";
@@ -68,6 +93,8 @@ export default {
   },
   created() {
     this.fetchData();
+   
+    
   }
 }
 </script>
