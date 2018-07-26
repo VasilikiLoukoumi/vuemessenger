@@ -1,12 +1,12 @@
 <template>
   <div class="dashboard">
-    <div class="container">
-    <router-link to="/messenger">
-      <h1>{{page_title}}</h1>
-   <i class="medium material-icons">chat</i>
-   <h3>{{sub_title}}</h3>
-    </router-link>
-      </div>
+    <div class="container">   
+      <router-link to="/messenger">   
+        <h1>{{page_title}}</h1>
+        <i class="medium material-icons">chat</i>
+        <h3>{{sub_title}}</h3>
+      </router-link>
+    </div>
   </div>
 </template>
 
